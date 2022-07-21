@@ -1,5 +1,8 @@
 from random import randint
 import os
+from colorama import init, Fore, Style, Back
+
+init()
 
 class Cell:
     """ Класс клетки поля. Имеет локальные атрибуты: around_mines - количество мин вокруг,
@@ -40,18 +43,28 @@ class GamePole:
 
         return r
 
-    def show(self):
+    def show(self, fl):
         """ метод отображения игрового поля """
 
-        for i in range(self.n):
-            for j in range(self.n):
-                if self.pole[i][j].fl_open and not self.pole[i][j].mine:
-                    print(self.pole[i][j].around_mines, end=" ")
-                elif self.pole[i][j].fl_open and self.pole[i][j].mine:
-                    print("*", end=" ")
-                elif not self.pole[i][j].fl_open:
-                    print("#", end=" ")
-            print()
+        if fl:
+            for i in range(self.n):
+                for j in range(self.n):
+                    if self.pole[i][j].fl_open and not self.pole[i][j].mine:
+                        print(Back.GREEN + str(self.pole[i][j].around_mines) + Style.RESET_ALL, end=" ")
+                    elif self.pole[i][j].fl_open and self.pole[i][j].mine:
+                        print(Back.RED + "*" + Style.RESET_ALL, end=" ")
+                    elif not self.pole[i][j].fl_open:
+                        print("#", end=" ")
+                print()
+        else:
+            for i in range(self.n):
+                for j in range(self.n):
+                    if not self.pole[i][j].mine:
+                        print(Back.GREEN + str(self.pole[i][j].around_mines) + Style.RESET_ALL, end=" ")
+                    elif self.pole[i][j].mine:
+                        print(Back.RED + "*" + Style.RESET_ALL, end=" ")
+                print()
+
 
     def click(self, x, y):
         """ Нажатие на ячейку x y """
@@ -64,17 +77,17 @@ check = 0
 
 while True:
     try:
-        pole_game.show()
+        pole_game.show(True)
         x, y = map(int, input().split())
         pole_game.click(x, y)
         os.system("cls")
         if pole_game.pole[x - 1][y - 1].mine:
-            pole_game.show()
+            pole_game.show(False)
             print("You lose!")
             break
         check += 1
         if n**2 - check == m:
-            pole_game.show()
+            pole_game.show(False)
             print("You won")
             break
     except:

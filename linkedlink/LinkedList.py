@@ -51,8 +51,7 @@ class ListAll:
 	""" Основной класс, работающий с объектами класса ListObj
 	Методы класса: add_obj - добавляет элемент в конец списка, pop - удаляет элемент с конца списка из возвращает его,
 	find - возвращает элемент по его индексу, get_data - возвращает все объекты из списка, get_count - возвращает
-	размер списка, insert - добавляет элемент в список по идексу, delete - удаляет элемент по индексу, swap - 
-	меняет два элемента местами """
+	размер списка, insert - добавляет элемент в список по идексу """
 	
 	def __init__(self):
 		self.__head = None
@@ -140,26 +139,3 @@ class ListAll:
 					break
 				tmp = tmp.next
 				i += 1
-
-	def delete(self, indx):
-		pass
-
-	def swap(self, indx1, indx2):
-		pass
-
-
-lst = ListAll()
-obj1 = ListObj("One")
-obj2 = ListObj("Two")
-
-lst.add_obj(obj1)
-lst.add_obj(obj2)
-lst.add_obj(ListObj("Hi there!"))
-lst.add_obj(ListObj("Hi there! second"))
-
-print(lst.get_data())
-lst.insert(1, ListObj("i was inserted"))
-lst.insert(0, ListObj("I was inserted! zero"))
-lst.insert(lst.get_count(), ListObj("I was inserted! last"))
-
-print(*lst.get_data(), sep="\n")
